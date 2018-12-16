@@ -13,6 +13,10 @@
 	// todo: calculate and show distances in a div-box at the top left
 	// todo: better attractors (stick all points to the lines)
 
+	function bgimage(img) {
+		alert('todo');
+	} 
+
 	// initialize coordinate system
 	var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [0, 100, 100, 0],keepaspectratio: true, opacity:0});
 
@@ -62,4 +66,14 @@
 	</script>
 
 	<a href='?img=https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg'><b>Example:</b> currentURL?img=hyperlinktoimagefile.jpg<a>
+
+
+<div id="navElements" class="remove" style="position: fixed; left: 25px; top: 5px; padding: 5px; text-align: center; line-height: 25px; font-size: 20px; border: 0px solid lime; zoom: reset;">
+<div><input type="file" id="imgfiles" accept="image/jpeg" class="remove">
+<label for="imgfiles" class="remove"></label>
+  <fieldset style="position: relative; float: top; background-color: rgba(190,190,190,0.4); font-size: small; text-shadow: 2px 2px 4px white; padding: 5px;">
+<button onClick="bgimage(document.getElementById('file')); return false;">Bild übernehmen</button><br>
+  </fieldset>
+</div>
+
 </html>
