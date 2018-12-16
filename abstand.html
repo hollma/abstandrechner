@@ -12,7 +12,6 @@
 	// todo: see below; 
 	// todo: calculate and show distances in a div-box at the top left
 	// todo: better attractors (stick all points to the lines)
-	// todo: make sure that horizontal lines cannot be rotated
 
 	// initialize coordinate system
 	var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [0, 100, 100, 0],keepaspectratio: true});
@@ -26,36 +25,35 @@
 	
 	// initialize points
 	var F  = board.create('point',[108,82], {name:'F',size:4}); // vanishing point
-	var S  = board.create('point',[40,35], {name:'S',size:4}); // left lane
-	var R  = board.create('point',[125,35], {name:'R',size:4}); // right lane
-	var Scopy  = board.create('point',[70,56], {name:'S\'',size:4}); // left lane copy
-	var Rcopy  = board.create('point',[117.5,56], {name:'R\'',size:4}); // right lane copy
+	var S  = board.create('point',[40,35], {name:'S',size:4, attractors : [srtrack], attractorDistance:0.2, snatchDistance: 5}); // left lane
+	var R  = board.create('point',[125,35], {name:'R',size:4, attractors : [srtrack], attractorDistance:0.2, snatchDistance: 5}); // right lane
 
 	// todo: determine middle of the image automatically
-	var midbot  = board.create('point',[96,0], {name:'M',size:4}); // camera position 
+	var midbot  = board.create('point',[96,0], {name:'M', size:4, fixed:true}); // camera position 
 	
 	// aux lines (perspective)
 	var ltrack = board.create('line',['F', 'S'], {strokeColor:'#ffffff',strokeWidth:2});
 	var rtrack = board.create('line',['F', 'R'], {strokeColor:'#0000ff',strokeWidth:2});
 
-	// commented: maybe use later for board.create('parallel', ...)
-	// var bottrack = board.create('line',[[0,0], [192,0]], {strokeColor:'#ffffff',strokeWidth:5});
-
 	// horizontal aux lines
-	var srtrack = board.create('line',['S', 'R'], {name : 'srtrack', strokeColor:'#ff00ff',strokeWidth:2});	
-	var srtrackcopy = board.create('line',['S\'', 'R\'' ], {withLabel:true});
+	var srtrack = board.create('line',[[40,35], [125,35]], {name : 'srtrack', strokeColor:'#ff00ff',strokeWidth:2});	
+	var srtrackcopy = board.create('line',[[70, 56],[117.5, 56] ], {withLabel:false});
 
 	// more aux points for car position (A) and camera projection (K)
-	var K  = board.create('point',[101.1,35], {name:'K',size:4, attractors : [srtrack], attractorDistance:0.2, snatchDistance: 5});
 	var A  = board.create('point',[83,35], {name:'A',size:4, attractors : [srtrack], attractorDistance:0.2, snatchDistance: 5});
 
 	// aux lines (perspective)
-	var ktrack = board.create('line',['F', 'K'], {strokeColor:'#00ff00',strokeWidth:2});
+	var ktrack = board.create('line',['F', 'M'], {strokeColor:'#00ff00',strokeWidth:2});
 	var atrack = board.create('line',['F', 'A'], {strokeColor:'#ff0000',strokeWidth:2});
 
+	// aux points (copies)
+	var i = board.create('intersection', [ltrack, srtrackcopy, 0], {name : 'S\''});
+	var i = board.create('intersection', [rtrack, srtrackcopy, 0], {name : 'R\''});
+	var i = board.create('intersection', [ktrack, srtrackcopy, 0], {name : 'K\''});
+	var i = board.create('intersection', [atrack, srtrackcopy, 0], {name : 'A\''});
+
 	// copy of car position and camera projection points
-	var Acopy  = board.create('point',[94,56], {name:'A\'',size:4, attractors : [atrack, srtrackcopy], attractorDistance:0.2, snatchDistance: 5});
-	var Kcopy  = board.create('point',[104.2,56], {name:'K\'',size:4, attractors : [ktrack, srtrackcopy], attractorDistance:0.2, snatchDistance: 5});
-	
+	var K  = board.create('intersection',[ktrack, srtrack, 0], {name:'K'});
+
 	</script>
 </html>
