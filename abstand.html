@@ -17,7 +17,10 @@
 	var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [0, 100, 100, 0],keepaspectratio: true, opacity:0});
 
 	// todo: load image from local storage or external URL without uploading the image
-	var urlImg = 'https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
+	var url = new URL(window.location.href);
+	var urlImg = url.searchParams.get('img');
+	if (!urlImg)
+		urlImg = 'https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
 
 	// set background image
 	// todo: determine size of the image automatically (not fixed 192:108 ratio as in FullHD)
@@ -57,4 +60,6 @@
 	var R  = board.create('intersection',[rtrack, srtrack, 0], {name:'R'});
 
 	</script>
+
+	<a href='?img=https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg'><b>Example:</b> currentURL?img=hyperlinktoimagefile.jpg<a>
 </html>
