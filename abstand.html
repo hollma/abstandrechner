@@ -1,78 +1,90 @@
 <!doctype html>
 <html>
     <head>
-<script type='text/javascript' charset='UTF-8'  src='https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js'></script>
-<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css' />
+	<script type='text/javascript' charset='UTF-8'  src='https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js'></script>
+	<link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css' />
      </head>
     <body>
 
-	<div id='jxgbox' class='jxgbox' style='width:1920px; height:1080px;'></div>
+	<div id='jxgbox' class='jxgbox'  style='resize: both; overflow: auto;  width:1920px; height:800px; '></div>
 	<script type='text/javascript'>
 
 	// todo: see below; 
 	// todo: calculate and show distances in a div-box at the top left
 	// todo: better attractors (stick all points to the lines)
-
-	function bgimage(img) {
-		alert('todo');
-	} 
+	// todo: compute width and height of jxgbox-div such that jxgbox and image have the same size + middle point at the correct position
+	// buggy for large photos!
 
 	// initialize coordinate system
-	var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [0, 100, 100, 0],keepaspectratio: true, opacity:0});
-
-	// todo: load image from local storage or external URL without uploading the image
+	JXG.Options.text.cssClass = 'myDefaultFont';
+	var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [0, 10, 10, 0],keepaspectratio: true, opacity:0.1});
+	
+	// load image from local storage or external URL without uploading the image
 	var url = new URL(window.location.href);
 	var urlImg = url.searchParams.get('img');
 	if (!urlImg)
 		urlImg = 'https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
 
-	// set background image
-	// todo: determine size of the image automatically (not fixed 192:108 ratio as in FullHD)
-	var im = board.create('image',[urlImg, [0,0], [192,108] ], {fixed : true});
-	
+	// set background image (asynchronously)
+	var _img = document.getElementById('bg_image');
+	var img = new Image();
+
+	img.onload = function() {
+		img.width  = this.width;
+		img.height = this.height;
+	}
+	img.src = urlImg;
+	setTimeout(function(){
+	    	var im = board.create('image',[urlImg, [0,0], [img.width/100, img.height/100]], {fixed : true});
+		var jxgbox = document.getElementById('jxgbox');
+		jxgbox.width = img.width + 'px';
+		jxgbox.height = img.height + 'px';
+		midbot.moveTo([img.width/200, 0],0) // compute camera position
+	}, 1000);
+
 	// initialize moving points
-	var F  = board.create('point',[108,82], {name:'F',size:4, color:'#ffff00'}); // vanishing point
-	var moveS  = board.create('point',[18,20], {name:'moveS',size:20, color:'#ffff00', withLabel:false}); // left lane
-	var moveR  = board.create('point',[137,2], {name:'moveR',size:20, color:'#ffff00', withLabel:false}); // right lane
-	var moveA  = board.create('point',[66,2], {name:'moveA',size:20, color:'#ffff00', withLabel:false}); // car 
+	var F  = board.create('point',[10.8,8.2], {name:'F',size:4, color:'#ffff00'}); // vanishing point
+	var moveS  = board.create('point',[1.8,2.0], {name:'moveS',size:20, color:'#ffff00', withLabel:false}); // left lane
+	var moveR  = board.create('point',[13.7,0.2], {name:'moveR',size:20, color:'#ffff00', withLabel:false}); // right lane
+	var moveA  = board.create('point',[6.6,0.2], {name:'moveA',size:20, color:'#ffff00', withLabel:false}); // car 
 
 	// todo: determine middle of the image automatically
-	var midbot  = board.create('point',[96,0], {name:'M', size:4, fixed:true}); // camera position 
+	var midbot  = board.create('point',[5,0], {name:'M', size:4, fixed:true}); // camera position 
 	
 	// aux lines (perspective)
 	var ltrack = board.create('line',['F', 'moveS'], {strokeColor:'#ffffff',strokeWidth:2});
 	var rtrack = board.create('line',['F', 'moveR'], {strokeColor:'#0000ff',strokeWidth:2});
 
 	// horizontal aux lines
-	var srtrack = board.create('line',[[40,35], [125,35]], {name : 'srtrack', strokeColor:'#ff00ff',strokeWidth:2});	
-	var srtrackcopy = board.create('line',[[70, 56],[117.5, 56] ], {withLabel:false});
+	var srtrack = board.create('line',[[4.0,3.5], [12.5,3.5]], {name : 'srtrack', strokeColor:'#ff00ff',strokeWidth:2});	
+	var srtrackcopy = board.create('line',[[7.0, 5.6],[11.75, 5.6] ], {withLabel:false});
 
 	// more aux lines (perspective)
 	var ktrack = board.create('line',['F', 'M'], {strokeColor:'#00ff00',strokeWidth:2});
 	var atrack = board.create('line',['F', 'moveA'], {strokeColor:'#ff0000',strokeWidth:2});
 
 	// aux points (copies)
-	var Scopy = board.create('intersection', [ltrack, srtrackcopy, 0], {name : 'S\''});
-	var Rcopoy = board.create('intersection', [rtrack, srtrackcopy, 0], {name : 'R\''});
-	var Kcopy = board.create('intersection', [ktrack, srtrackcopy, 0], {name : 'K\''});
-	var Acopy = board.create('intersection', [atrack, srtrackcopy, 0], {name : 'A\''});
+	var Scopy = board.create('intersection', [ltrack, srtrackcopy, 0],  {name : 'S\'', size : 5});
+	var Rcopoy = board.create('intersection', [rtrack, srtrackcopy, 0], {name : 'R\'', size : 5});
+	var Kcopy = board.create('intersection', [ktrack, srtrackcopy, 0],  {name : 'K\'', size : 5});
+	var Acopy = board.create('intersection', [atrack, srtrackcopy, 0],  {name : 'A\'', size : 5});
 
 	// copy of car position and camera projection points
-	var S  = board.create('intersection',[ltrack, srtrack, 0], {name:'S'});
-	var A  = board.create('intersection',[atrack, srtrack, 0], {name:'A'});
-	var K  = board.create('intersection',[ktrack, srtrack, 0], {name:'K'});
-	var R  = board.create('intersection',[rtrack, srtrack, 0], {name:'R'});
+	var S  = board.create('intersection',[ltrack, srtrack, 0], {name:'S', size : 5});
+	var A  = board.create('intersection',[atrack, srtrack, 0], {name:'A', size : 5});
+	var K  = board.create('intersection',[ktrack, srtrack, 0], {name:'K', size : 5});
+	var R  = board.create('intersection',[rtrack, srtrack, 0], {name:'R', size : 5});
 
 	</script>
 
 	<a href='?img=https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg'><b>Example:</b> currentURL?img=hyperlinktoimagefile.jpg<a>
 
 
-<div id="navElements" class="remove" style="position: fixed; left: 25px; top: 5px; padding: 5px; text-align: center; line-height: 25px; font-size: 20px; border: 0px solid lime; zoom: reset;">
+<div id="navElements" class="remove" style="position: fixed; left: 25px; top: 20px; padding: 5px; text-align: center; line-height: 25px; font-size: 20px; border: 0px solid lime; zoom: reset;">
 <div><input type="file" id="imgfiles" accept="image/jpeg" class="remove">
 <label for="imgfiles" class="remove"></label>
   <fieldset style="position: relative; float: top; background-color: rgba(190,190,190,0.4); font-size: small; text-shadow: 2px 2px 4px white; padding: 5px;">
-<button onClick="bgimage(document.getElementById('file')); return false;">Bild übernehmen</button><br>
+<button onClick="bgimage(document.getElementById('file')); return false;">Bild &uuml;bernehmen</button><br>
   </fieldset>
 </div>
 
