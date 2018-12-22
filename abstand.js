@@ -58,11 +58,13 @@ var midbot = board.create('point', [96, 0], {
 // aux lines (perspective)
 var ltrack = board.create('line', ['F', 'moveS'], {
   strokeColor: '#ffffff',
-  strokeWidth: 2
+  strokeWidth: 2,
+  fixed: true
 });
 var rtrack = board.create('line', ['F', 'moveR'], {
   strokeColor: '#0000ff',
-  strokeWidth: 2
+  strokeWidth: 2,
+  fixed: true
 });
 // horizontal aux lines
 var srtrack = board.create('line', [
@@ -82,11 +84,13 @@ var srtrackcopy = board.create('line', [
 // more aux lines (perspective)
 var ktrack = board.create('line', ['F', 'M'], {
   strokeColor: '#00ff00',
-  strokeWidth: 2
+  strokeWidth: 2,
+  fixed: true
 });
 var atrack = board.create('line', ['F', 'moveA'], {
   strokeColor: '#ff0000',
-  strokeWidth: 2
+  strokeWidth: 2,
+  fixed: true
 });
 // aux points (copies)
 var Scopy = board.create('intersection', [ltrack, srtrackcopy, 0], {
