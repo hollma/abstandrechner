@@ -71,7 +71,7 @@ var srtrack = board.create('line', [
 ], {
   name: 'srtrack',
   strokeColor: '#ff00ff',
-  strokeWidth: 2
+  strokeWidth: 6
 });
 var srtrackcopy = board.create('line', [
   [70, 56],
@@ -90,32 +90,73 @@ var atrack = board.create('line', ['F', 'moveA'], {
 });
 // aux points (copies)
 var Scopy = board.create('intersection', [ltrack, srtrackcopy, 0], {
-  name: 'S\''
+  name: function() {
+    return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">S\' (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 var Rcopoy = board.create('intersection', [rtrack, srtrackcopy, 0], {
-  name: 'R\''
+  name: function() {
+    return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">R\' (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 var Kcopy = board.create('intersection', [ktrack, srtrackcopy, 0], {
-  name: 'K\''
+    name: function() {
+    return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">K\' (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 var Acopy = board.create('intersection', [atrack, srtrackcopy, 0], {
-  name: 'A\''
+  name: function() {
+    return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">A\' (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 // copy of car position and camera projection points
 var S = board.create('intersection', [ltrack, srtrack, 0], {
-  name: 'S'
+  name: function() {
+    return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">S (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 var A = board.create('intersection', [atrack, srtrack, 0], {
   name: function() {
-    return 'A' + '<span style="display: inline-block; vertical-align: middle; background-color:rgba(255,0,0,.5); margin: 1em;">TODO:<br>display distance K-A<br>as multiple / fraction of<br> (known / measured) distance R\'-S\'</span>';
+    return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">A (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
   }
 });
 var K = board.create('intersection', [ktrack, srtrack, 0], {
-  name: 'K'
+  name: function() {
+    return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">K (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
 var R = board.create('intersection', [rtrack, srtrack, 0], {
-  name: 'R'
+  name: function() {
+    return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">R (' 
++  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+  }
 });
+
+// calculations
+
+var results = board.create('point', [10, 80], {
+  name: function() {
+    var SR_dist = Math.round( (R.X()-S.X()) * 100 )/100;
+    var SA_dist = Math.round( (A.X()-S.X()) * 100 )/100;
+    var SA_dist_ratio = SA_dist / SR_dist * 100;
+    var AK_dist = Math.round( (K.X()-A.X()) * 100 )/100;
+    var AK_dist_ratio = AK_dist / SR_dist * 100;
+    var KR_dist = Math.round( (R.X()-K.X()) * 100 )/100;
+    var KR_dist_ratio = KR_dist / SR_dist * 100;
+
+    return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">SR = ' +  SR_dist + '&nbsp;&nbsp;&nbsp;(100%)<br>SA = ' + SA_dist + '&nbsp;&nbsp;&nbsp;(' + Math.round(SA_dist_ratio*10)/10 + '%)<br>AK = ' + AK_dist + '&nbsp;&nbsp;&nbsp;(' + Math.round(AK_dist_ratio*10)/10 + '%)<br>KR = ' + KR_dist + '&nbsp;&nbsp;&nbsp;(' + Math.round(KR_dist_ratio*10)/10 + '%)</span>';
+  },
+  size: 0,
+  color: '#ffffff',
+  withLabel: true
+}); 
 
 
 // Load image from file and update board. Requires jQuery and File API.
