@@ -53,21 +53,27 @@ var midbot = board.create('point', [96, 0], {
   name: 'M',
   size: 4,
   fixed: true
-}); // camera position 
+}); // camera position (bottom)
+
+var midbot = board.create('point', [96, 108], {
+  name: 'M\'',
+  size: 4,
+  fixed: true
+}); // camera position (top)
 
 // aux lines (perspective)
-var ltrack = board.create('line', ['F', 'moveS'], {
+var ltrack = board.create('segment', ['F', 'moveS'], {
   strokeColor: '#ffffff',
   strokeWidth: 2,
   fixed: true
 });
-var rtrack = board.create('line', ['F', 'moveR'], {
+var rtrack = board.create('segment', ['F', 'moveR'], {
   strokeColor: '#0000ff',
   strokeWidth: 2,
   fixed: true
 });
 // horizontal aux lines
-var srtrack = board.create('line', [
+var srtrack = board.create('segment', [
   [40, 35],
   [125, 35]
 ], {
@@ -75,19 +81,26 @@ var srtrack = board.create('line', [
   strokeColor: '#ff00ff',
   strokeWidth: 6
 });
-var srtrackcopy = board.create('line', [
+var srtrackcopy = board.create('segment', [
   [70, 56],
   [117.5, 56]
 ], {
   withLabel: false
 });
 // more aux lines (perspective)
-var ktrack = board.create('line', ['F', 'M'], {
+var ktrack = board.create('segment', ['F', 'M'], {
   strokeColor: '#00ff00',
   strokeWidth: 2,
   fixed: true
 });
-var atrack = board.create('line', ['F', 'moveA'], {
+
+var ktracktop = board.create('segment', ['F', 'M\''], {
+  strokeColor: '#00ff00',
+  strokeWidth: 2,
+  fixed: true
+});
+
+var atrack = board.create('segment', ['F', 'moveA'], {
   strokeColor: '#ff0000',
   strokeWidth: 2,
   fixed: true
