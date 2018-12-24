@@ -51,6 +51,12 @@ var moveA = board.create('point', [66, 2], {
   color: '#ffff00',
   withLabel: false
 }); // car 
+var movedash = board.create('point', [2, 50], {
+  name: 'movedash',
+  size: 12,
+  color: '#00ff00',
+  withLabel: false
+});
 // todo: determine middle of the image automatically
 var midbot = board.create('point', [96, 0], {
   name: 'M',
@@ -75,6 +81,13 @@ var rtrack = board.create('segment', ['F', 'moveR'], {
   strokeWidth: 2,
   fixed: true
 });
+var dashtrack = board.create('segment', ['F', 'movedash'], {
+  strokeColor: '#00ff00',
+  strokeWidth: 1,
+  fixed : true,
+  dash : 2
+});
+
 // horizontal aux lines
 var srtrack = board.create('line', [
   [40, 35],
