@@ -168,28 +168,29 @@ var R = board.create('intersection', [rtrack, srtrack, 0], {
 });
 
 // calculations
+function show_results() {
+	var results = board.create('point', [2, 80], {
+	  name: function() {
+	    var SR_dist = Math.abs(Math.round( (R.X()-S.X()) * 1000 )/1000);
+	    // var SA_dist = Math.round( (A.X()-S.X()) * 100 )/100;
+	    // var SA_dist_ratio = SA_dist / SR_dist * 100;
+	    var AK_dist = Math.round( (K.X()-A.X()) * 1000 )/1000;
+	    var AK_dist_ratio = AK_dist / SR_dist;
+	    // var KR_dist = Math.round( (R.X()-K.X()) * 100 )/100;
+	    // var KR_dist_ratio = KR_dist / SR_dist * 100;
 
-var results = board.create('point', [2, 80], {
-  name: function() {
-    var SR_dist = Math.abs(Math.round( (R.X()-S.X()) * 1000 )/1000);
-    // var SA_dist = Math.round( (A.X()-S.X()) * 100 )/100;
-    // var SA_dist_ratio = SA_dist / SR_dist * 100;
-    var AK_dist = Math.round( (K.X()-A.X()) * 1000 )/1000;
-    var AK_dist_ratio = AK_dist / SR_dist;
-    // var KR_dist = Math.round( (R.X()-K.X()) * 100 )/100;
-    // var KR_dist_ratio = KR_dist / SR_dist * 100;
+	    var ref_size_in_cm = document.getElementById('ref_size_in_cm').value;
+	    return '<span style="display: inline-block; font-size:16px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">Abstand zwischen Auto und Kamera = ' + Math.round(Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm) + 'cm</span>';
+	   // return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">SR = $TODO (get value from input field) ' +  SR_dist + '<br>AK = ' + Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm + '</span>';
+	  },
+	  size: 0,
+	  color: '#ffffff',
+	  withLabel: true
+	});
+  return 0; 
+}
 
-    var ref_size_in_cm = document.getElementById('ref_size_in_cm').value;
-    return '<span style="display: inline-block; font-size:16px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">Abstand zwischen Auto und Kamera = ' + Math.round(Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm) + 'cm</span>';
-   // return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">SR = $TODO (get value from input field) ' +  SR_dist + '<br>AK = ' + Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm + '</span>';
-  },
-  size: 0,
-  color: '#ffffff',
-  withLabel: true
-}); 
-
-
-// var dataURL = board.renderer.canvasRoot.toDataURL();
+show_results();
 
 
 // Load image from file and update board. Requires jQuery and File API.
@@ -205,6 +206,12 @@ $("#imgfiles").change(function() {
     im.url = reader.result;
     board.update();
   }
+});
+
+// change reference size in cm
+$("#ref_size_in_cm").change(function() {
+  show_results();
+  board.update();
 });
 
 
