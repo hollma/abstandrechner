@@ -1,4 +1,5 @@
 <!doctype html>
+ <meta charset="UTF-8"> 
 <html>
 	<head>
 		<script type='text/javascript' charset='UTF-8' src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,15 +12,25 @@
 	<body>
 		<div id='jxgbox' class='jxgbox'></div>
 
-
-
 		<div id="Bildwechsel">
 			<fieldset>
-				<legend>Bildwechsel</legend>
+				<legend><b>Einstellungen</b></legend>
 				<input type="file" id="imgfiles" accept="image/jpeg, image/png" class="remove">
+				<div><label>Referenzbreite in cm <input id="ref_size_in_cm" type=number min="1" max="1000" value="12" step="1"></label></div>
+				<div><label> <input type=checkbox id="debug"> Debug-Modus (TODO: Koordinaten anzeigen) </label></div>
 			</fieldset>
 		</div>
-		<script type='text/javascript' charset='UTF-8' src='abstand.js'></script>		
+		<script type='text/javascript' charset='UTF-8' src='abstand.js'></script>	
+		
+		
+		<b>Noch in Entwicklung: </b><a href="https://github.com/hollma/abstandrechner">Projekt auf Github (samt Fork für bessere Benutzerschnittstelle)</a><br>
+		<b>mit Koordinaten der Punkte: </b><a href="?debug=1">Debug-Version</a>
+		
+		<h3>Kurzanleitung</h3>
+		<ul>
+			<li>Mit blauer und weißer Linie eine Referenzbreite markieren (z.B. Fahrbahnbegrenzung 12 cm)</li>
+			<li>Mit roter Linie das Auto markieren</li>
+		
 	</body>
 
 </html>

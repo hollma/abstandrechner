@@ -2,6 +2,8 @@
 // todo: calculate and show distances in a div-box at the top left
 // todo: better attractors (stick all points to the lines)
 
+JXG.Options.renderer = 'canvas';
+
 // initialize coordinate system
 var board = JXG.JSXGraph.initBoard('jxgbox', {
   boundingbox: [0, 100, 100, 0],
@@ -14,6 +16,7 @@ var board = JXG.JSXGraph.initBoard('jxgbox', {
 // todo: load image from local storage or external URL without uploading the image
 var url = new URL(window.location.href);
 var urlImg = url.searchParams.get('img');
+var debug = url.searchParams.get('debug');
 if (!urlImg)
   urlImg = 'https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
 // set background image
@@ -108,49 +111,65 @@ var atrack = board.create('segment', ['F', 'moveA'], {
 // aux points (copies)
 var Scopy = board.create('intersection', [ltrack, srtrackcopy, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">S\' (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'S\'';
   }
 });
-var Rcopoy = board.create('intersection', [rtrack, srtrackcopy, 0], {
+var Rcopy = board.create('intersection', [rtrack, srtrackcopy, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">R\' (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'R\'';
   }
 });
 var Kcopy = board.create('intersection', [ktrack, srtrackcopy, 0], {
     name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">K\' (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'K\'';
   }
 });
 var Acopy = board.create('intersection', [atrack, srtrackcopy, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">A\' (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'A\'';
   }
 });
 // copy of car position and camera projection points
 var S = board.create('intersection', [ltrack, srtrack, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">S (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'S';
   }
 });
 var A = board.create('intersection', [atrack, srtrack, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">A (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'A';
   }
 });
 var K = board.create('intersection', [ktrack, srtrack, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">K (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'K';
   }
 });
 var R = board.create('intersection', [rtrack, srtrack, 0], {
   name: function() {
+    if(debug)
     return '<span style="display: inline-block; font-size:20px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">R (' +  Math.round(this.X()*100)/100 + ', ' + Math.round(this.Y()*100)/100 + ')</span>';
+    else return 'R';
   }
 });
 
 // calculations
 
-var results = board.create('point', [2, 90], {
+var results = board.create('point', [2, 80], {
   name: function() {
     var SR_dist = Math.abs(Math.round( (R.X()-S.X()) * 1000 )/1000);
     // var SA_dist = Math.round( (A.X()-S.X()) * 100 )/100;
@@ -160,12 +179,17 @@ var results = board.create('point', [2, 90], {
     // var KR_dist = Math.round( (R.X()-K.X()) * 100 )/100;
     // var KR_dist_ratio = KR_dist / SR_dist * 100;
 
-    return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">SR = $TODO (get value from input field) ' +  SR_dist + '<br>AK = ' + Math.round(AK_dist_ratio*1000)/1000 + ' &times; SR</span>';
+    var ref_size_in_cm = document.getElementById('ref_size_in_cm').value;
+    return '<span style="display: inline-block; font-size:16px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">Abstand zwischen Auto und Kamera = ' + Math.round(Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm) + 'cm</span>';
+   // return '<span style="display: inline-block; font-size:12px; vertical-align: left; background-color:rgba(255,255,0,.5); left-margin: 0px;">SR = $TODO (get value from input field) ' +  SR_dist + '<br>AK = ' + Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm + '</span>';
   },
   size: 0,
   color: '#ffffff',
   withLabel: true
 }); 
+
+
+var dataURL = board.renderer.canvasRoot.toDataURL();
 
 
 // Load image from file and update board. Requires jQuery and File API.
@@ -182,6 +206,5 @@ $("#imgfiles").change(function() {
     board.update();
   }
 });
-
 
 
