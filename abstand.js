@@ -189,7 +189,7 @@ var results = board.create('point', [2, 80], {
 }); 
 
 
-var dataURL = board.renderer.canvasRoot.toDataURL();
+// var dataURL = board.renderer.canvasRoot.toDataURL();
 
 
 // Load image from file and update board. Requires jQuery and File API.
