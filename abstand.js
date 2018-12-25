@@ -187,7 +187,7 @@ function show_results() {
 	    var SR_dist = Math.abs(Math.round( (R.X()-S.X()) * 1000 )/1000);
 	    // var SA_dist = Math.round( (A.X()-S.X()) * 100 )/100;
 	    // var SA_dist_ratio = SA_dist / SR_dist * 100;
-	    var AK_dist = Math.round( (K.X()-A.X()) * 1000 )/1000;
+	    var AK_dist = Math.abs(Math.round( (K.X()-A.X()) * 1000 )/1000);
 	    var AK_dist_ratio = AK_dist / SR_dist;
 	    // var KR_dist = Math.round( (R.X()-K.X()) * 100 )/100;
 	    // var KR_dist_ratio = KR_dist / SR_dist * 100;
