@@ -1,0 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=Quattrocento:700);
+
+
+#jxgbox {
+    max-width: calc(100vw - 25px);
+    max-height: calc(100vh - 25px);
+    width: 1920px;
+    height: calc(50vw);
+}

@@ -1,4 +1,4 @@
-// todo: see below; 
+// todo: see below;
 // todo: calculate and show distances in a div-box at the top left
 // todo: better attractors (stick all points to the lines)
 
@@ -10,6 +10,8 @@ var board = JXG.JSXGraph.initBoard('jxgbox', {
   keepaspectratio: true,
   opacity: 0
 });
+
+window.document.board = board;
 
 
 
@@ -50,7 +52,7 @@ var moveA = board.create('point', [66, 2], {
   size: 20,
   color: '#ffff00',
   withLabel: false
-}); // car 
+}); // car
 var movedash = board.create('point', [2, 50], {
   name: 'movedash',
   size: 12,
@@ -200,7 +202,7 @@ function show_results() {
 	  color: '#ffffff',
 	  withLabel: true
 	});
-  return 0; 
+  return 0;
 }
 
 show_results();
