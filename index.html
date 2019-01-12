@@ -6,35 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css' />
-    <link rel="stylesheet" type="text/css" href="main.css" />
-    <script type='text/javascript' charset='UTF-8' src='https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js'></script>
+    <link rel='stylesheet' href='styles/bootstrap/4.0.0-beta/css/bootstrap.min.css' integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel='stylesheet' type='text/css' href='styles/jsxgraph/0.99.7/jsxgraph.css' />
+    <link rel='stylesheet' type='text/css' href='styles/main.css' />
+    <script type='text/javascript' charset='UTF-8' src='scripts/jsxgraph/0.99.7/jsxgraphcore.js'></script>
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10">
+        <div class="col-xs-12 col-sm-12 col-md-9">
             <div id='jxgbox' class='jxgbox w-100'></div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2">
+        <div class="col-xs-12 col-sm-12 col-md-3">
             <fieldset>
                 <legend><b>Einstellungen</b></legend>
                 <input type="file" id="imgfiles" accept="image/jpeg, image/png" class="remove">
                 <div><label>Referenzbreite in cm <input id="ref_size_in_cm" type=number min="1" max="1000" value="12" step="1"></label></div>
-                <div><label> <input type=checkbox id="debug"> Debug-Modus (TODO: Koordinaten anzeigen) </label></div>
+                <div title="TODO: Koordinaten anzeigen"><label> <input type=checkbox id="debug" title="TODO: Koordinaten anzeigen"> Debug-Modus </label></div>
             </fieldset>
-
+            <fieldset>
+                <legend><b>Abstände</b></legend>
+                <div><label><b>Kamera : Fahrzeug = </b><output id="cam_car_in_cm"></output></label></div>
+            </fieldset>
         </div>
     </div>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-<script type='text/javascript' charset='UTF-8' src='abstand.js'></script>
+<script type='text/javascript' charset='UTF-8' src="scripts/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type='text/javascript' charset='UTF-8' src="scripts/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script type='text/javascript' charset='UTF-8' src="scripts/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script type='text/javascript' charset='UTF-8' src='scripts/abstand.js'></script>
 
 <script type="text/javascript">
     $( window ).resize(function() {

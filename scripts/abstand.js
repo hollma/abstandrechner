@@ -179,9 +179,6 @@ function show_results2() {
 	var AK_dist_ratio = AK_dist / SR_dist;
   var ref_size_in_cm = document.getElementById('ref_size_in_cm').value;
   document.getElementById('cam_car_in_cm').value = Math.round(Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm) + ' cm';
-
-
-
 }
 
 show_results();
