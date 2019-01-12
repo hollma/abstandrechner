@@ -21,10 +21,15 @@ var board = JXG.JSXGraph.initBoard('jxgbox', {
   boundingbox: [0, img.naturalHeight, img.naturalWidth, 0],
   keepaspectratio: true,
   opacity: 0,
-  zoom : false,
+  zoom : false, // does not work?
+  pan : false,  // does not work?
   grid : false,
   showCopyright: false
 });
+
+board.attr.pan.enabled  = false;
+board.attr.zoom.enabled = false;
+
 
 window.document.board = board;
 
