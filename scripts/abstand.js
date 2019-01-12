@@ -13,7 +13,7 @@ if (!urlImg)
 // set background image
 // todo: determine size of the image automatically (not fixed 192:108 ratio as in FullHD)
 
-var img = document.createElement('img');
+var img = document.createElement('img', {id : "tmpimg"});
 img.src = urlImg;
 
 // initialize coordinate system
@@ -30,7 +30,6 @@ var board = JXG.JSXGraph.initBoard('jxgbox', {
 board.attr.pan.enabled  = false;
 board.attr.zoom.enabled = false;
 
-
 window.document.board = board;
 
 var boardbox = document.getElementById('jxgbox')
@@ -41,7 +40,7 @@ var im = board.create('image', [urlImg, [0, 0],
   fixed: true
 });
 
-
+board.update();
 
 // initialize moving points
 var F = board.create('point', [1080, 820], {
