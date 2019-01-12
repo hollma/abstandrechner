@@ -7,4 +7,8 @@ Based on http://jsxgraph.uni-bayreuth.de/wp/index.html
 Pull requests welcome!
 
 ## Demo
-https://wiki.fricklers.org/abstand2.html
+https://abstand.fricklers.org
+
+## Acknowledgments
+https://github.com/matthias-chlechowitz (responsive design)
+https://twitter.com/BerlinCyclist (StVO advisor)
