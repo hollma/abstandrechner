@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Abstandrechner</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +10,7 @@
     <link rel='stylesheet' href='styles/bootstrap/4.0.0-beta/css/bootstrap.min.css' integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' href='styles/jsxgraph/0.99.7/jsxgraph.css' />
     <link rel='stylesheet' type='text/css' href='styles/main.css' />
-    <script type='text/javascript' charset='UTF-8' src='scripts/jsxgraph/0.99.7/jsxgraphcore.js'></script>
+    <script src='scripts/jsxgraph/0.99.7/jsxgraphcore.js'></script>
 
 </head>
 <body>
@@ -31,22 +32,23 @@
             </fieldset>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>
-		<b>Noch in Entwicklung: </b><a href="https://github.com/hollma/abstandrechner">Projekt auf Github</a><br>
-		</p>
-		<h3>Kurzanleitung</h3>
-		<ul>
-			<li>Mit blauer und weißer Linie eine Referenzbreite markieren (z.B. Fahrbahnbegrenzung 12 cm)</li>
-			<li>Mit roter Linie das Auto markieren</li>
-        </ul>
+            <p>
+		    <b>Noch in Entwicklung: </b><a href="https://github.com/hollma/abstandrechner">Projekt auf Github</a><br>
+		    </p>
+		    <h3>Kurzanleitung</h3>
+		    <ul>
+			    <li>Mit blauer und weißer Linie eine Referenzbreite markieren (z.B. Fahrbahnbegrenzung 12 cm)</li>
+			    <li>Mit roter Linie das Auto markieren</li>
+            </ul>
+        </div>
     </div>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script type='text/javascript' charset='UTF-8' src="scripts/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script type='text/javascript' charset='UTF-8' src="scripts/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script type='text/javascript' charset='UTF-8' src="scripts/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-<script type='text/javascript' charset='UTF-8' src='scripts/abstand.js'></script>
+<script src="scripts/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="scripts/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="scripts/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script src='scripts/abstand.js'></script>
 
 <script type="text/javascript">
     $( window ).resize(function() {
@@ -56,6 +58,11 @@
         console.log(window.document.board.canvasHeight);
         console.log(window.document.board.canvasWidth);
     });
+
+	$(window).load(function() {
+		// executes when complete page is fully loaded, including all frames, objects and images
+		window.document.board.update();
+	});
 </script>
 </body>
 </html>

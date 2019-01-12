@@ -208,6 +208,7 @@ $("#imgfiles").change(function() {
   var reader = new FileReader();
   reader.readAsDataURL(imgfile);
   reader.onload = function(event) {
+    img.src = reader.result; 
     im.url = reader.result;
     board.update();
   }
