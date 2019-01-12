@@ -4,17 +4,6 @@
 
 JXG.Options.renderer = 'canvas';
 
-// initialize coordinate system
-var board = JXG.JSXGraph.initBoard('jxgbox', {
-  boundingbox: [0, 100, 100, 0],
-  keepaspectratio: true,
-  opacity: 0
-});
-
-window.document.board = board;
-
-
-
 // todo: load image from local storage or external URL without uploading the image
 var url = new URL(window.location.href);
 var urlImg = url.searchParams.get('img');
@@ -23,50 +12,70 @@ if (!urlImg)
   urlImg = 'https://wiki.fricklers.org/lib/exe/fetch.php/abstand/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
 // set background image
 // todo: determine size of the image automatically (not fixed 192:108 ratio as in FullHD)
+
+var img = document.createElement('img');
+img.src = urlImg;
+
+// initialize coordinate system
+var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [0, img.naturalHeight, img.naturalWidth, 0],
+  keepaspectratio: true,
+  opacity: 0,
+  zoom : false,
+  grid : false,
+  showCopyright: false
+});
+
+window.document.board = board;
+
+var boardbox = document.getElementById('jxgbox')
+
 var im = board.create('image', [urlImg, [0, 0],
-  [192, 108]
+  [img.naturalWidth, img.naturalHeight]
 ], {
   fixed: true
 });
 
+
+
 // initialize moving points
-var F = board.create('point', [108, 82], {
+var F = board.create('point', [1080, 820], {
   name: 'F',
   size: 4,
   color: '#ffff00'
 }); // vanishing point
-var moveS = board.create('point', [142.5, 2], {
+var moveS = board.create('point', [1425, 20], {
   name: 'moveS',
   size: 20,
   color: '#ffff00',
   withLabel: false
 }); // left lane
-var moveR = board.create('point', [137, 2], {
+var moveR = board.create('point', [1370, 20], {
   name: 'moveR',
   size: 20,
   color: '#ffff00',
   withLabel: false
 }); // right lane
-var moveA = board.create('point', [66, 2], {
+var moveA = board.create('point', [660, 20], {
   name: 'moveA',
   size: 20,
   color: '#ffff00',
   withLabel: false
 }); // car
-var movedash = board.create('point', [2, 50], {
+var movedash = board.create('point', [20, 500], {
   name: 'movedash',
   size: 12,
   color: '#00ff00',
   withLabel: false
 });
 // todo: determine middle of the image automatically
-var midbot = board.create('point', [96, 0], {
+var midbot = board.create('point', [img.naturalWidth/2, 0], {
   name: 'M',
   size: 4,
   fixed: true
 }); // camera position (bottom)
 
-var midbot = board.create('point', [96, 108], {
+var midbot = board.create('point', [img.naturalWidth/2, img.naturalHeight], {
   name: 'M\'',
   size: 4,
   fixed: true
@@ -92,16 +101,16 @@ var dashtrack = board.create('segment', ['F', 'movedash'], {
 
 // horizontal aux lines
 var srtrack = board.create('line', [
-  [40, 35],
-  [125, 35]
+  [400, 350],
+  [1250, 350]
 ], {
   name: 'srtrack',
   strokeColor: '#ff00ff',
   strokeWidth: 6
 });
 var srtrackcopy = board.create('line', [
-  [70, 56],
-  [117.5, 56]
+  [700, 560],
+  [1175, 560]
 ], {
   withLabel: false
 });
@@ -152,7 +161,7 @@ var R = board.create('intersection', [rtrack, srtrack, 0], {
 
 // calculations
 function show_results() {
-  var results = board.create('point', [2, 80], {
+  var results = board.create('point', [20, 800], {
 	  name: function() {
 	    var SR_dist = Math.abs(Math.round( (R.X()-S.X()) * 1000 )/1000);
 	    var AK_dist = Math.abs(Math.round( (K.X()-A.X()) * 1000 )/1000);
