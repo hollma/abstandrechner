@@ -10,5 +10,5 @@ Pull requests welcome!
 https://abstand.fricklers.org
 
 ## Acknowledgments
-https://github.com/matthias-chlechowitz (responsive design)
-https://twitter.com/BerlinCyclist (StVO advisor)
+* https://github.com/matthias-chlechowitz (responsive design)
+* https://twitter.com/BerlinCyclist (StVO advisor)
