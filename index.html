@@ -15,6 +15,7 @@
 </head>
 <body>
 <div class="container-fluid">
+    <p><b>Known issue (especially in Chromium): If you cannot see the example photo, please <a href="">refresh</a> or try a different browser.</b></p>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9">
             <div id='jxgbox' class='jxgbox w-100'></div>
@@ -59,10 +60,10 @@
         console.log(window.document.board.canvasWidth);
     });
 
-//	$(window).load(function() {
-//		// executes when complete page is fully loaded, including all frames, objects and images
-//		window.document.board.update();
-//	});
+	$(window).load(function() {
+		// executes when complete page is fully loaded, including all frames, objects and images
+		window.document.board.update();
+	});
 </script>
 </body>
 </html>

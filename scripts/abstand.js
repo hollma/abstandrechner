@@ -11,11 +11,8 @@ var debug = url.searchParams.get('debug');
 if (!urlImg)
   urlImg = 'example/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
 // set background image
-// todo: determine size of the image automatically (not fixed 192:108 ratio as in FullHD)
-
 
 var img = document.createElement('img', {id : "tmpimg"});
-
 img.src = urlImg;
 
 var board =  JXG.JSXGraph.initBoard('jxgbox');
@@ -51,7 +48,7 @@ function imgonload_fun(board){
   board.update();
 };   
 
-img.onload = imgonload_fun(board);
+
 
 function create_initial_geometry() {
   var board = window.document.board;
@@ -210,7 +207,7 @@ function show_results2() {
   document.getElementById('cam_car_in_cm').value = Math.round(Math.round(AK_dist_ratio*1000)/1000 * ref_size_in_cm) + ' cm';
 }
 
-
+img.onload = imgonload_fun(board);
 create_initial_geometry();
 
 // show_results();
