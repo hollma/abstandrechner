@@ -16,7 +16,8 @@
 </head>
 <body>
 <div class="container-fluid">
-    <p><b>Known issue (especially in Chromium): If you cannot see the example photo, please <a href="">refresh</a> or
+    <p><b>Alpha-Version / Baustelle: Nutze stattdessen <a href="https://wiki.fricklers.org/abstand.html">https://wiki.fricklers.org/abstand.html</a>.<br>
+Known issue (especially in Chromium): If you cannot see the example photo, please <a href="">refresh</a> or
         try a different browser.</b></p>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9">
@@ -26,31 +27,31 @@
             <form>
                 <div class="form-group row">
                     <label for="ref_size_in_cm" class="col-sm-5 col-form-label" data-toggle="tooltip"
-                           data-placement="top" title="Erklärungstext">Referenzbreite</label>
+                           data-placement="top" title="Markiere mit der blauen und der weißen Linie eine dir bekannte Breite, z.B. eine Fahrbahnmarkierung (12 cm), die Breite der Straße (häufig 300 cm), die Breite eines vorausfahrenden Autos etc.">Referenzbreite (in cm)</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="ref_size_in_cm" placeholder="12cm">
+                        <input class="form-control" id="ref_size_in_cm" type="number" min="1" max="1000" value="12" step="1">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="offset_left_in_cm" class="col-sm-5 col-form-label" data-toggle="tooltip"
-                           data-placement="top" title="Erklärungstext">Offset left</label>
+                           data-placement="top" title="Wie breit ist das Fahrrad (mit Anhänger oder Beladung) links von der Kamera?">Breite links (in cm)</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="offset_left_in_cm" placeholder="12cm">
+                        <input class="form-control" id="offset_left_in_cm" type="number" min="1" max="100" value="35" step="1"> 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="offset_right_in_cm" class="col-sm-5 col-form-label" data-toggle="tooltip"
-                           data-placement="top" title="Erklärungstext">Offset right</label>
+                           data-placement="top" title="Wie breit ist das Fahrrad (mit Anhänger oder Beladung) rechts von der Kamera?">Breite rechts (in cm)</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="offset_right_in_cm" placeholder="12cm">
+                        <input class="form-control" id="offset_right_in_cm" type="number" min="1" max="100" value="35" step="1"> 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="measuring_error" class="col-sm-5 col-form-label" data-toggle="tooltip"
-                           data-placement="top" title="Erklärungstext">Messtoleranz</label>
+                           data-placement="top" title="Addiere x% des berechneten Abstands für eine konservative Schätzung (in dubio pro reo).">Messtoleranz in %</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="measuring_error" placeholder="10%">
+                        <input type="number" class="form-control" id="measuring_error" min="1" max="100" value="10" step="1">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -83,7 +84,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td scope="row">Fahrzeug : Fahrrad<br>(inkl Toleranz)</td>
+                    <td scope="row">Fahrzeug : Fahrrad<br>(inkl. Toleranz)</td>
                     <td>
                         <output id="car_bike_in_cm_with_error"></output>
                     </td>

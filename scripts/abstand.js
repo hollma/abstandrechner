@@ -1,10 +1,7 @@
-// todo: see below;
-// todo: calculate and show distances in a div-box at the top left
-// todo: better attractors (stick all points to the lines)
-
 JXG.Options.renderer = 'canvas';
 
 // todo: load image from local storage or external URL without uploading the image
+// take care of asynchronous javascript behaviour -> callback once the image is loaded? semaphores?
 var url = new URL(window.location.href);
 var urlImg = url.searchParams.get('img');
 var debug = url.searchParams.get('debug');
@@ -82,6 +79,13 @@ function create_initial_geometry() {
         color: '#00ff00',
         withLabel: false
     });
+
+    F.on('mousedrag', show_results2);
+    moveS.on('mousedrag', show_results2);
+    moveR.on('mousedrag', show_results2);
+    moveA.on('mousedrag', show_results2);
+    movedash.on('mousedrag', show_results2);
+
     // todo: determine middle of the image automatically
     var midbot = board.create('point', [img.naturalWidth / 2, 0], {
         name: 'M',
@@ -175,6 +179,7 @@ function create_initial_geometry() {
 }
 
 // calculations
+/*
 function show_results() {
     var board = window.document.board;
     var results = board.create('point', [20, 800], {
@@ -191,7 +196,7 @@ function show_results() {
         withLabel: true
     });
     return 0;
-}
+} */
 
 function show_results2() {
     var board = window.document.board;
@@ -199,6 +204,7 @@ function show_results2() {
     var S = board.elementsByName['S'];
     var K = board.elementsByName['K'];
     var A = board.elementsByName['A'];
+    // var M = board.elementsByName['M'];
     var SR_dist = Math.abs(Math.round((R.X() - S.X()) * 1000) / 1000);
     var AK_dist = Math.abs(Math.round((K.X() - A.X()) * 1000) / 1000);
     var AK_dist_ratio = AK_dist / SR_dist;
@@ -206,8 +212,20 @@ function show_results2() {
     // neue Werte
     var offset_right_in_cm = document.getElementById('offset_right_in_cm').value;
     var offset_left_in_cm = document.getElementById('offset_left_in_cm').value;
-
+    var measuring_error = document.getElementById('measuring_error').value;
+ 
     document.getElementById('cam_car_in_cm').value = Math.round(Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm) + ' cm';
+    document.getElementById('cam_car_in_cm_with_error').value =  (Math.round((1 + measuring_error / 100) * Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm)) + ' cm';
+
+    // car left of bike
+    if (K.X() > A.X()) {
+        document.getElementById('car_bike_in_cm').value = Math.round(Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm) - offset_left_in_cm + ' cm';
+        document.getElementById('car_bike_in_cm_with_error').value =  Math.round((1 + measuring_error / 100) * Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm) - offset_left_in_cm + ' cm';
+    } // car right of bike
+    else {
+        document.getElementById('car_bike_in_cm').value = Math.round(Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm) - offset_right_in_cm + ' cm';
+        document.getElementById('car_bike_in_cm_with_error').value = Math.round((1 + measuring_error / 100) * Math.round(AK_dist_ratio * 1000) / 1000 * ref_size_in_cm) - offset_right_in_cm + ' cm';
+    }
 }
 
 img.onload = imgonload_fun(board);
@@ -244,14 +262,41 @@ $("#imgfiles").change(function () {
     }
 });
 
+
+
 // change reference size in cm
 $("#ref_size_in_cm").change(function () {
-    var board = window.document.board;
-    show_results();
+    window.document.board.update();
     show_results2();
-    board.update();
 });
 
+// change left offset
+$("#offset_left_in_cm").change(function () {
+    window.document.board.update();
+    show_results2();
+});
+
+// change right offset
+$("#offset_right_in_cm").change(function () {
+    window.document.board.update();
+    show_results2();
+});
+
+// change measuring_error
+$("#measuring_error").change(function () {
+    window.document.board.update();
+    show_results2();
+});
+
+var board = window.document.board;
 board.on('update', show_results2);
+/*
+var F = board.elementsByName['F'];
+var moveS = board.elementsByName['moveS'];
+var moveR = board.elementsByName['moveR'];
+var moveA = board.elementsByName['moveA'];
+var movedash = board.elementsByName['movedash'];
+*/
+
 
 
