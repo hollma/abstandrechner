@@ -1,24 +1,10 @@
-JXG.Options.renderer = 'canvas';
+function imgonload_fun(board, img) {
+    // dummy function
+};
 
-// todo: load image from local storage or external URL without uploading the image
-// take care of asynchronous javascript behaviour -> callback once the image is loaded? semaphores?
-var url = new URL(window.location.href);
-var urlImg = url.searchParams.get('img');
-var debug = url.searchParams.get('debug');
-if (!urlImg)
-    urlImg = 'example/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
-// set background image
-
-var img = document.createElement('img', {id: "tmpimg"});
-img.src = urlImg;
-
-var board = JXG.JSXGraph.initBoard('jxgbox');
-var im;
-
-function imgonload_fun(board) {
-
-    // initialize coordinate system
-    board = JXG.JSXGraph.initBoard('jxgbox', {
+function create_initial_geometry() {
+    // initialize coordinate system via loaded image
+    var board = JXG.JSXGraph.initBoard('jxgbox', {
         boundingbox: [0, img.naturalHeight, img.naturalWidth, 0],
         keepaspectratio: true,
         opacity: 0,
@@ -33,7 +19,7 @@ function imgonload_fun(board) {
 
     window.document.board = board;
 
-    var boardbox = document.getElementById('jxgbox')
+    var boardbox = document.getElementById('jxgbox');
 
     im = board.create('image', [img.src, [0, 0],
         [img.naturalWidth, img.naturalHeight]
@@ -41,13 +27,6 @@ function imgonload_fun(board) {
         name: 'my_photo',
         fixed: true
     });
-
-    board.update();
-};
-
-
-function create_initial_geometry() {
-    var board = window.document.board;
 
     // initialize moving points
     var F = board.create('point', [1080, 820], {
@@ -176,6 +155,8 @@ function create_initial_geometry() {
     var R = board.create('intersection', [rtrack, srtrack, 0], {
         name: 'R'
     });
+
+    board.update();
 }
 
 // calculations
@@ -228,7 +209,25 @@ function show_results2() {
     }
 }
 
-img.onload = imgonload_fun(board);
+
+JXG.Options.renderer = 'canvas';
+
+// todo: load image from local storage or external URL without uploading the image
+// take care of asynchronous javascript behaviour -> callback once the image is loaded? semaphores?
+var url = new URL(window.location.href);
+var urlImg = url.searchParams.get('img');
+var debug = url.searchParams.get('debug');
+if (!urlImg)
+    urlImg = 'example/2018-10-05_alltagserlebnisse_17_43_4.jpg.jpg';
+
+var board = JXG.JSXGraph.initBoard('jxgbox');
+var im;
+// set background image
+
+var img = new Image(); 
+img.onload = imgonload_fun();
+img.src = urlImg;
+
 create_initial_geometry();
 
 // show_results();
